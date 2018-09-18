@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 import { notEquals } from '.';
 
-let currentMaxDeep: number;
+let currentMaxCallsFunc: number;
 
 const convertArray = R.pipe<any[], string[], string, string, string>(
   R.map((item) => toString(item)),
@@ -26,10 +26,10 @@ const convertObject = R.pipe(
 
 // not working if exists cycles
 function toString(value: any): string {
-  if (R.equals(currentMaxDeep, 0)) {
+  if (R.equals(currentMaxCallsFunc, 0)) {
     return String(value);
   }
-  currentMaxDeep--;
+  currentMaxCallsFunc--;
 
   if (R.equals(typeof value, 'function')) {
     return String(value);
@@ -45,8 +45,9 @@ function toString(value: any): string {
   return convertObject(value) as any;
 }
 
-export function objToString(value: any, maxDeep: number = 5): string {
-  currentMaxDeep = maxDeep; // this dirty hack need to save perfomance and prevent stack overflow when cycles
+export function objToString(value: any, maxCallsFunc: number = 100): string {
+  currentMaxCallsFunc = maxCallsFunc; // this need to prevent stack overflow when cycles. this dirty hack need to save perfomance and allow don't avoid pipe
+
   try {
     return toString(value);
   }

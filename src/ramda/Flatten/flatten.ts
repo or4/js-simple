@@ -1,25 +1,17 @@
 import * as R from 'ramda';
 
-function getValue(object: object, key?: string) {
-  if (R.isNil(key)) {
-    return;
+function reducer(acc: any[], current: any) {
+  if (Array.isArray(current)) {
+    acc.push.apply(acc, flatten(current));
+    return acc;
   }
-
-  return object[key];
+  acc.push(current);
+  return acc;
 }
 
-export function flatten(arr: string[], object: object): any {
+export function flatten(arr: any[]): any {
   if (R.isNil(arr) || R.equals(arr.length, 0)) {
     return arr;
   }
-
-  let value = object;
-
-  while (true) {
-    const p = arr.shift();
-    if (R.isNil(p) || R.isNil(value)) {
-      return value;
-    }
-    value = getValue(value, p);
-  }
+  return arr.reduce(reducer, []);
 }

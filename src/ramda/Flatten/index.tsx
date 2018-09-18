@@ -9,13 +9,16 @@ export class Flatten extends React.PureComponent {
       <div>
         <h3>Flatten</h3>
         <div>{`R.flatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]]) = ${objToString(R.flatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]]))}`}</div>
-        <div>{`R.flatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]]) = ${objToString([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11, { a: 4 }], 12]]]])}`}</div>
+        <div>{`flatten([1, 2]) = ${objToString(flatten([1, 2]))}`}</div>
+        <div>{`flatten([1, 2, [3, 4]]) = ${objToString(flatten([1, 2, [3, 4]]))}`}</div>
+        <div>{`flatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]]) = ${objToString(flatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]]))}`}</div>
       </div>
     );
   }
 }
 
 /*
+
 <div>{` = ${objToString()}`}</div>
 <div>{` = ${objToString()}`}</div>
 <div>{` = ${objToString()}`}</div>

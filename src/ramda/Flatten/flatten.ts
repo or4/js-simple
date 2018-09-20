@@ -1,17 +1,14 @@
 import * as R from 'ramda';
 
 function reducer(acc: any[], current: any) {
-  if (Array.isArray(current)) {
-    acc.push.apply(acc, flatten(current));
-    return acc;
-  }
-  acc.push(current);
+  acc.push.apply(acc, flatten(current));
   return acc;
+  // return acc.concat(flatten(current));
 }
 
-export function flatten(arr: any[]): any {
-  if (R.isNil(arr) || R.equals(arr.length, 0)) {
-    return arr;
+export function flatten(obj: any): any[] {
+  if (!Array.isArray(obj)) {
+    return [obj];
   }
-  return arr.reduce(reducer, []);
+  return obj.reduce(reducer, []);
 }

@@ -9,7 +9,6 @@ function dfsRecursive(arr: Graph, currentVertex: number) {
   if (visited[currentVertex]) {
     return;
   }
-  console.log(currentVertex);
   output.push(currentVertex);
 
   visited[currentVertex] = true;

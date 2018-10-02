@@ -34,8 +34,6 @@ function deikstraR(arr: Graph) {
   }
 
   Array.prototype.push.apply(stack, arr[graphItem.vertex]);
-
-  deikstraR(arr);
 }
 
 
@@ -56,11 +54,13 @@ export function deikstra(arr: Graph) {
 
   Array.prototype.push.apply(stack, vertices);
 
-
-  deikstraR(arr);
+  while (stack.length > 0) {
+    deikstraR(arr);
+  }
 
   console.log('weights', weights);
   console.log('stack', stack);
+  console.log('done', done);
 
   return R.pipe(
     R.toPairs,

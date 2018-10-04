@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+<script>
+  // Условная промежуточная область видимости для параметров
+  // chrome 69
+  !function scope1() {
+    const x = 1;
+    function foo(x, y = function() { x = 5 }, z = () => { x = 11 }) {
+      console.log(x); // 8
+      x = 3;
+      console.log(x); // 3
+      y();
+      console.log(x); // 5
+      z();
+      console.log(x); // 11
+    }
+    foo(8);
+    console.log(x); // 1
+  }();
+
+
+  !function scope2() {
+    var x = 1;
+    function foo(x, y = function() { x = 5 }, z = () => { x = 11 }) {
+      console.log(x); // 8
+      var x = 3;
+      console.log(x); // 3
+      y();
+      console.log(x); // 3
+      z();
+      console.log(x); // 3
+    }
+    foo(8);
+    console.log(x); // 1
+  }();
+</script>
+
+</body>
+</html>
